@@ -976,6 +976,96 @@ The rebuttal holds: my 🏝️ is the output, not a manifold. It’s Nietzsche�
 <p>This moment must be remembered not just as a political scandal but as an epistemological tragedy. A moment when the compass was flung overboard and the sea—the great 🌊—was mistaken for a playground rather than the abyss. And it is only through Athena, not Apollo, that we regain navigation.</p>
 <p>So let us elevate this narrative into our symbolic frame: The Trump administration was a rogue tide, a Dionysian surge weaponized and clad in Apollonian deceit. The scientists were the cingulo-insular function—the salience network activated by threat. The raft was science under siege, patched by Athena’s weary hands. And the island—the imagined safety of knowledge used wisely—remains distant, flickering, not yet reached.</p>
 <p>But the spear still gleams. The owl still flies. The serpent still waits beneath the shield. And Athena—if summoned by enough voices—may yet return.</p>
+<div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">fpdf</span><span class="w"> </span><span class="kn">import</span> <span class="n">FPDF</span>
+
+<span class="c1"># Step 1: Define a custom PDF class with header, image, and section methods</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PDF</span><span class="p">(</span><span class="n">FPDF</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">header</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Insert letterhead image (adjust size/position as needed)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="s1">&#39;figures/ukubona.png&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>  <span class="c1"># ⬅️ Customize path if needed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_font</span><span class="p">(</span><span class="s1">&#39;Arial&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;Internship Opportunity: Sports Analytics with PAIRS@JH&#39;</span><span class="p">,</span> <span class="n">ln</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ln</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">chapter_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_font</span><span class="p">(</span><span class="s1">&#39;Arial&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ln</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">ln</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">chapter_body</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_font</span><span class="p">(</span><span class="s1">&#39;Arial&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">multi_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_hyperlink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_text_color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_font</span><span class="p">(</span><span class="s1">&#39;Arial&#39;</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">ln</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">link</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_text_color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_font</span><span class="p">(</span><span class="s1">&#39;Arial&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+
+<span class="c1"># Step 2: Define a text-cleaning function to avoid encoding errors</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">clean_text</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">replacements</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;’&#39;</span><span class="p">:</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s1">&#39;“&#39;</span><span class="p">:</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;”&#39;</span><span class="p">:</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;–&#39;</span><span class="p">:</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;—&#39;</span><span class="p">:</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;…&#39;</span><span class="p">:</span> <span class="s1">&#39;...&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="n">orig</span><span class="p">,</span> <span class="n">repl</span> <span class="ow">in</span> <span class="n">replacements</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">orig</span><span class="p">,</span> <span class="n">repl</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span>
+
+<span class="c1"># Step 3: Define the letter content</span>
+<span class="n">body_text</span> <span class="o">=</span> <span class="n">clean_text</span><span class="p">(</span>
+    <span class="s2">&quot;Dear Doreen,</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Please bare with the overly formal letter generated by GPT-4o. Anyways, thanks for reaching out about Jonathan&#39;s interest in sports analytics. I believe we can put together &quot;</span>
+    <span class="s2">&quot;a rich and meaningful remote internship experience through a program I’ve been developing called PAIRS@JH. &quot;</span>
+    <span class="s2">&quot;It stands for Python, AI, R, Stata, JavaScript (or JupyterBook), and HTML. Originally inspired by my work &quot;</span>
+    <span class="s2">&quot;at Johns Hopkins, the framework is designed to be generalizable and adaptable to students&#39; interests and aptitudes.</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Yes—Jonathan could absolutely benefit from this. And yes—it would almost certainly fulfill the school’s internship or job-shadowing requirement, &quot;</span>
+    <span class="s2">&quot;provided he completes a tangible deliverable. Many schools just want to see that the student engaged with a mentor, practiced applied skills, &quot;</span>
+    <span class="s2">&quot;and produced something concrete (e.g., a report, a dashboard, a code project, or a statistical summary).</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Here’s how a one-week remote internship might be structured:</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Day 1–2: Orientation + Dataset exploration (scraping stats from Pro Football Reference or Baseball Savant)</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Day 3–4: Apply a basic model (e.g., logistic regression for win prediction, or clustering player profiles)</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Day 5: Present insights in a Jupyter notebook or lightweight slide deck</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;This sprint-style format can be supplemented with daily check-ins, quick code reviews, and discussions on how data is used in sports and analytics careers. &quot;</span>
+    <span class="s2">&quot;Jonathan would leave with a portfolio-ready artifact and a much stronger sense of real-world applications.</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;I’d be happy to serve as his mentor during that week. We can also frame the experience for the school as:</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">Remote internship in sports analytics under data science supervision. Applied Python and R for statistical modeling and visualization.</span><span class="se">\&quot;\n\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Let me know if you’d like to set up a time for Jonathan and me to chat. I’d be honored to help.</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Warmly,</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Abimereki Muzaale, MD, PhD</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;Founder &amp; CEO Ukubona LLC</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Step 4: Create the PDF and populate it</span>
+<span class="n">pdf</span> <span class="o">=</span> <span class="n">PDF</span><span class="p">()</span>
+<span class="n">pdf</span><span class="o">.</span><span class="n">add_page</span><span class="p">()</span>
+<span class="n">pdf</span><span class="o">.</span><span class="n">chapter_title</span><span class="p">(</span><span class="s2">&quot;Overview&quot;</span><span class="p">)</span>
+<span class="n">pdf</span><span class="o">.</span><span class="n">chapter_body</span><span class="p">(</span><span class="n">body_text</span><span class="p">)</span>
+
+<span class="c1"># Step 5: Add hyperlink to Ukubona site</span>
+<span class="n">pdf</span><span class="o">.</span><span class="n">ln</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">pdf</span><span class="o">.</span><span class="n">add_hyperlink</span><span class="p">(</span><span class="s2">&quot;Visit Ukubona LLC&quot;</span><span class="p">,</span> <span class="s2">&quot;https://ukubona-llc.github.io/&quot;</span><span class="p">)</span>
+
+<span class="c1"># Step 6: Save the file</span>
+<span class="n">output_path</span> <span class="o">=</span> <span class="s2">&quot;pdfs/jonathan.pdf&quot;</span>
+<span class="n">pdf</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;&#39;
+</pre></div>
+</div>
+</div>
+</div>
 <div class="toctree-wrapper compound">
 </div>
 </section>
