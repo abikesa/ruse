@@ -379,7 +379,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -395,6 +397,40 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ukubona-pdf-generation-summary-reproducible-process">✅ Ukubona PDF Generation Summary (Reproducible Process)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#goal">🔧 GOAL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-failures">1️⃣ Initial Failures</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-encoding-errors">❌ Problem: Encoding errors</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-font-not-defined">❌ Problem: Font not defined</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-wrong-install">❌ Problem: Wrong install</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-fixes">2️⃣ Final Fixes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fonts-used">✅ Fonts Used</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-get-them">🔗 Where to get them:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-setup">3️⃣ Environment Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#uninstall-legacy-version">✅ Uninstall legacy version:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#install-correct-modern-library">✅ Install correct modern library:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#confirm-it-s-clean">✅ Confirm it’s clean:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-directory-structure">4️⃣ Final Directory Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-coding-decisions">5️⃣ Key Coding Decisions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-output">6️⃣ Final Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-enhancements-ready-when-you-are">🧪 Optional Enhancements (Ready When You Are)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -1009,143 +1045,7 @@ The rebuttal holds: my 🏝️ is the output, not a manifold. It’s Nietzsche�
 </style>
 
 <!-- Wikipedia-style Code Box -->
-<div class="wiki-frame"><div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">fpdf</span><span class="w"> </span><span class="kn">import</span> <span class="n">FPDF</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-
-<span class="c1"># ========== Configuration ==========</span>
-<span class="n">FONT_DIR</span> <span class="o">=</span> <span class="s2">&quot;fonts&quot;</span>
-<span class="n">FIGURE_DIR</span> <span class="o">=</span> <span class="s2">&quot;figures&quot;</span>
-<span class="n">OUTPUT_DIR</span> <span class="o">=</span> <span class="s2">&quot;pdfs&quot;</span>
-<span class="n">FONT_REGULAR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FONT_DIR</span><span class="p">,</span> <span class="s2">&quot;DejaVuSans.ttf&quot;</span><span class="p">)</span>
-<span class="n">FONT_BOLD</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FONT_DIR</span><span class="p">,</span> <span class="s2">&quot;DejaVuSans-Bold.ttf&quot;</span><span class="p">)</span>
-<span class="n">LOGO</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FIGURE_DIR</span><span class="p">,</span> <span class="s2">&quot;ukubona.png&quot;</span><span class="p">)</span>
-<span class="n">OUTPUT_PDF</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="s2">&quot;jonathan.pdf&quot;</span><span class="p">)</span>
-
-<span class="c1"># ========== PDF Class ==========</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">PDF</span><span class="p">(</span><span class="n">FPDF</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_font</span><span class="p">(</span><span class="s2">&quot;DejaVu&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">FONT_REGULAR</span><span class="p">,</span> <span class="n">uni</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_font</span><span class="p">(</span><span class="s2">&quot;DejaVu&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">FONT_BOLD</span><span class="p">,</span> <span class="n">uni</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_auto_page_break</span><span class="p">(</span><span class="n">auto</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_margins</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">add_page</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_font</span><span class="p">(</span><span class="s2">&quot;DejaVu&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">header</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">LOGO</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_font</span><span class="p">(</span><span class="s2">&quot;DejaVu&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;Ukubona LLC&quot;</span><span class="p">,</span> <span class="n">ln</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_draw_color</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_line_width</span><span class="p">(</span><span class="mf">0.3</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ln</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">footer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_y</span><span class="p">(</span><span class="o">-</span><span class="mi">15</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_font</span><span class="p">(</span><span class="s2">&quot;DejaVu&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_text_color</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Page </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">page_no</span><span class="p">()</span><span class="si">}</span><span class="s2"> — Ukubona LLC © 2025&quot;</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">chapter_title</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_font</span><span class="p">(</span><span class="s2">&quot;DejaVu&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_text_color</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">ln</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ln</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">chapter_body</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_font</span><span class="p">(</span><span class="s2">&quot;DejaVu&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_text_color</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">multi_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ln</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_hyperlink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_text_color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">204</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_font</span><span class="p">(</span><span class="s2">&quot;DejaVu&quot;</span><span class="p">,</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">ln</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">link</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_text_color</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_font</span><span class="p">(</span><span class="s2">&quot;DejaVu&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
-
-<span class="c1"># ========== Body Content ==========</span>
-<span class="n">letter_body</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">Dear Doreen,</span>
-
-<span class="s2">Please bear with the overly formal letter generated by GPT-4o. Anyways, thanks for reaching out about Jonathan&#39;s interest in sports analytics. I believe we can put together a rich and meaningful remote internship experience through a program I’ve been developing called PAIRS@JH. It stands for Python, AI, R, Stata, JavaScript (or JupyterBook), and HTML. Originally inspired by my work at Johns Hopkins, the framework is designed to be generalizable and adaptable to students&#39; interests and aptitudes.</span>
-
-<span class="s2">Yes—Jonathan could absolutely benefit from this. And yes—it would almost certainly fulfill the school&#39;s internship or job-shadowing requirement, provided he completes a tangible deliverable. Many schools just want to see that the student engaged with a mentor, practiced applied skills, and produced something concrete (e.g., a report, a dashboard, a code project, or a statistical summary).</span>
-
-<span class="s2">Here’s how a one-week remote internship might be structured:</span>
-
-<span class="s2">Day 1–2: Orientation + Dataset exploration (scraping stats from Pro Football Reference or Baseball Savant)  </span>
-<span class="s2">Day 3–4: Apply a basic model (e.g., logistic regression for win prediction, or clustering player profiles)  </span>
-<span class="s2">Day 5: Present insights in a Jupyter notebook or lightweight slide deck</span>
-
-<span class="s2">This sprint-style format can be supplemented with daily check-ins, quick code reviews, and discussions on how data is used in sports and analytics careers. Jonathan would leave with a portfolio-ready artifact and a much stronger sense of real-world applications.</span>
-
-<span class="s2">I’d be happy to serve as his mentor during that week. We can also frame the experience for the school as:  </span>
-<span class="s2">&quot;Remote internship in sports analytics under data science supervision. Applied Python and R for statistical modeling and visualization.&quot;</span>
-
-<span class="s2">Let me know if you’d like to set up a time for Jonathan and me to chat. I’d be honored to help.</span>
-
-<span class="s2">Warmly,</span>
-
-<span class="s2">Abimereki Muzaale, MD, PhD  </span>
-<span class="s2">Founder &amp; CEO, Ukubona LLC</span>
-<span class="s2">&quot;&quot;&quot;</span>
-
-<span class="c1"># ========== Generate PDF ==========</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">):</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">)</span>
-
-<span class="n">pdf</span> <span class="o">=</span> <span class="n">PDF</span><span class="p">()</span>
-<span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%B </span><span class="si">%d</span><span class="s2">, %Y&quot;</span><span class="p">)</span>
-<span class="n">pdf</span><span class="o">.</span><span class="n">set_font</span><span class="p">(</span><span class="s2">&quot;DejaVu&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
-<span class="n">pdf</span><span class="o">.</span><span class="n">set_text_color</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">pdf</span><span class="o">.</span><span class="n">cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">today</span><span class="p">,</span> <span class="n">ln</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s2">&quot;R&quot;</span><span class="p">)</span>
-<span class="n">pdf</span><span class="o">.</span><span class="n">ln</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-
-<span class="n">pdf</span><span class="o">.</span><span class="n">chapter_title</span><span class="p">(</span><span class="s2">&quot;Letter of Internship Support for Jonathan&quot;</span><span class="p">)</span>
-<span class="n">pdf</span><span class="o">.</span><span class="n">chapter_body</span><span class="p">(</span><span class="n">letter_body</span><span class="p">)</span>
-<span class="n">pdf</span><span class="o">.</span><span class="n">ln</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">pdf</span><span class="o">.</span><span class="n">add_hyperlink</span><span class="p">(</span><span class="s2">&quot;Visit Ukubona LLC&quot;</span><span class="p">,</span> <span class="s2">&quot;https://ukubona-llc.github.io/&quot;</span><span class="p">)</span>
-
-<span class="n">pdf</span><span class="o">.</span><span class="n">output</span><span class="p">(</span><span class="n">OUTPUT_PDF</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✅ PDF saved to </span><span class="si">{</span><span class="n">OUTPUT_PDF</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/z3/nwmg00j178vfczmb9nk9487h0000gn/T/ipykernel_8485/863499504.py:18: DeprecationWarning: &quot;uni&quot; parameter is deprecated since v2.5.1, unused and will soon be removed
-  self.add_font(&quot;DejaVu&quot;, &quot;&quot;, FONT_REGULAR, uni=True)
-/var/folders/z3/nwmg00j178vfczmb9nk9487h0000gn/T/ipykernel_8485/863499504.py:19: DeprecationWarning: &quot;uni&quot; parameter is deprecated since v2.5.1, unused and will soon be removed
-  self.add_font(&quot;DejaVu&quot;, &quot;B&quot;, FONT_BOLD, uni=True)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>✅ PDF saved to pdfs/jonathan.pdf
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/z3/nwmg00j178vfczmb9nk9487h0000gn/T/ipykernel_8485/863499504.py:28: DeprecationWarning: The parameter &quot;ln&quot; is deprecated since v2.5.2. Instead of ln=True use new_x=XPos.LMARGIN, new_y=YPos.NEXT.
-  self.cell(0, 10, &quot;Ukubona LLC&quot;, ln=True, align=&quot;C&quot;)
-/var/folders/z3/nwmg00j178vfczmb9nk9487h0000gn/T/ipykernel_8485/863499504.py:94: DeprecationWarning: The parameter &quot;ln&quot; is deprecated since v2.5.2. Instead of ln=True use new_x=XPos.LMARGIN, new_y=YPos.NEXT.
-  pdf.cell(0, 10, today, ln=True, align=&quot;R&quot;)
-/var/folders/z3/nwmg00j178vfczmb9nk9487h0000gn/T/ipykernel_8485/863499504.py:43: DeprecationWarning: The parameter &quot;ln&quot; is deprecated since v2.5.2. Instead of ln=True use new_x=XPos.LMARGIN, new_y=YPos.NEXT.
-  self.cell(0, 10, title, ln=True)
-/var/folders/z3/nwmg00j178vfczmb9nk9487h0000gn/T/ipykernel_8485/863499504.py:55: DeprecationWarning: The parameter &quot;ln&quot; is deprecated since v2.5.2. Instead of ln=True use new_x=XPos.LMARGIN, new_y=YPos.NEXT.
-  self.cell(0, 10, label, ln=True, link=url)
-</pre></div>
-</div>
-</div>
-</div>
-<img src="figures/sports_analytics.jpeg" alt="Eco-Green QR Code" width="100%">
+<div class="wiki-frame"><img src="figures/sports_analytics.jpeg" alt="Eco-Green QR Code" width="100%">
 <div class="float-right" style="float:none;width:100%;margin-left:0;border:none;padding:0;background:none;">
   <a class="image-bubble layered-icon" href="pdfs/jonathan.pdf" target="_blank" title="Click to magnify">
     <div class="large-icon"></div>
@@ -1191,7 +1091,150 @@ They’re dealing with <strong>Ukubona</strong>.</p>
 <p>Just say the word.</p>
 <p>🪡🔥🛠️<br />
 Ukubona. We don’t just see—we <em>perceive</em>.</p>
+<hr class="docutils" />
+<p>Absolutely—here’s your <strong>tight, reproducible summary</strong> of the full journey from broken imports to Fortune-500-grade output, including <strong>which links actually worked</strong>, <strong>which things failed</strong>, and the <strong>final file structure</strong> and <strong>code configuration</strong> that delivered a bulletproof PDF.</p>
+<hr class="docutils" />
+<section id="ukubona-pdf-generation-summary-reproducible-process">
+<h2>✅ Ukubona PDF Generation Summary (Reproducible Process)<a class="headerlink" href="#ukubona-pdf-generation-summary-reproducible-process" title="Permalink to this heading">#</a></h2>
+<section id="goal">
+<h3>🔧 GOAL<a class="headerlink" href="#goal" title="Permalink to this heading">#</a></h3>
+<p>Generate a professionally styled PDF (<code class="docutils literal notranslate"><span class="pre">jonathan.pdf</span></code>) using <code class="docutils literal notranslate"><span class="pre">fpdf2</span></code> in Python, with:</p>
+<ul class="simple">
+<li><p>Embedded logo</p></li>
+<li><p>Unicode-safe body text</p></li>
+<li><p>Custom fonts</p></li>
+<li><p>Accurate margins, headers, and footers</p></li>
+<li><p>Clean output from <code class="docutils literal notranslate"><span class="pre">.py</span></code> script (not <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>)</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="initial-failures">
+<h3>1️⃣ Initial Failures<a class="headerlink" href="#initial-failures" title="Permalink to this heading">#</a></h3>
+<section id="problem-encoding-errors">
+<h4>❌ Problem: Encoding errors<a class="headerlink" href="#problem-encoding-errors" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Caused by <code class="docutils literal notranslate"><span class="pre">fpdf</span> <span class="pre">1.7.2</span></code> (legacy package) not supporting Unicode</p></li>
+<li><p>Triggered by smart quotes (<code class="docutils literal notranslate"><span class="pre">“</span></code> <code class="docutils literal notranslate"><span class="pre">”</span></code>) and em dashes (<code class="docutils literal notranslate"><span class="pre">—</span></code>) in body text</p></li>
+<li><p>Led to: <code class="docutils literal notranslate"><span class="pre">UnicodeEncodeError:</span> <span class="pre">'latin-1'</span> <span class="pre">codec</span> <span class="pre">can't</span> <span class="pre">encode</span> <span class="pre">character</span></code></p></li>
+</ul>
+</section>
+<section id="problem-font-not-defined">
+<h4>❌ Problem: Font not defined<a class="headerlink" href="#problem-font-not-defined" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Font <code class="docutils literal notranslate"><span class="pre">DejaVu</span> <span class="pre">B</span></code> not registered before <code class="docutils literal notranslate"><span class="pre">add_page()</span></code></p></li>
+<li><p>Led to: <code class="docutils literal notranslate"><span class="pre">FPDFException:</span> <span class="pre">Undefined</span> <span class="pre">font:</span> <span class="pre">dejavuB</span></code></p></li>
+</ul>
+</section>
+<section id="problem-wrong-install">
+<h4>❌ Problem: Wrong install<a class="headerlink" href="#problem-wrong-install" title="Permalink to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Installed <code class="docutils literal notranslate"><span class="pre">fpdf</span></code> (legacy) instead of <code class="docutils literal notranslate"><span class="pre">fpdf2</span></code> (modern)</p></li>
+<li><p>GitHub raw download links for <code class="docutils literal notranslate"><span class="pre">.ttf</span></code> returned <code class="docutils literal notranslate"><span class="pre">404</span></code>s</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="final-fixes">
+<h3>2️⃣ Final Fixes<a class="headerlink" href="#final-fixes" title="Permalink to this heading">#</a></h3>
+<section id="fonts-used">
+<h4>✅ Fonts Used<a class="headerlink" href="#fonts-used" title="Permalink to this heading">#</a></h4>
+<p>You need two <code class="docutils literal notranslate"><span class="pre">.ttf</span></code> files placed in a <code class="docutils literal notranslate"><span class="pre">fonts/</span></code> folder:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DejaVuSans.ttf</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DejaVuSans-Bold.ttf</span></code></p></li>
+</ul>
+<section id="where-to-get-them">
+<h5>🔗 Where to get them:<a class="headerlink" href="#where-to-get-them" title="Permalink to this heading">#</a></h5>
+<p>Best method (actually works):<br />
+Download full ZIP from the official GitHub release:
+👉 <a class="github reference external" href="https://github.com/dejavu-fonts/dejavu-fonts/releases/tag/version_2_37">dejavu-fonts/dejavu-fonts</a><br />
+✅ File: <code class="docutils literal notranslate"><span class="pre">dejavu-fonts-ttf-2.37.zip</span></code><br />
+➡ Unzip → use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dejavu</span><span class="o">-</span><span class="n">fonts</span><span class="o">-</span><span class="n">ttf</span><span class="o">-</span><span class="mf">2.37</span><span class="o">/</span><span class="n">ttf</span><span class="o">/</span><span class="n">DejaVuSans</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">dejavu</span><span class="o">-</span><span class="n">fonts</span><span class="o">-</span><span class="n">ttf</span><span class="o">-</span><span class="mf">2.37</span><span class="o">/</span><span class="n">ttf</span><span class="o">/</span><span class="n">DejaVuSans</span><span class="o">-</span><span class="n">Bold</span><span class="o">.</span><span class="n">ttf</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="environment-setup">
+<h3>3️⃣ Environment Setup<a class="headerlink" href="#environment-setup" title="Permalink to this heading">#</a></h3>
+<section id="uninstall-legacy-version">
+<h4>✅ Uninstall legacy version:<a class="headerlink" href="#uninstall-legacy-version" title="Permalink to this heading">#</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>uninstall<span class="w"> </span>fpdf
+rm<span class="w"> </span>-rf<span class="w"> </span>&lt;your-site-packages&gt;/fpdf
+</pre></div>
+</div>
+</section>
+<section id="install-correct-modern-library">
+<h4>✅ Install correct modern library:<a class="headerlink" href="#install-correct-modern-library" title="Permalink to this heading">#</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>fpdf2<span class="w"> </span>--force-reinstall
+</pre></div>
+</div>
+</section>
+<section id="confirm-it-s-clean">
+<h4>✅ Confirm it’s clean:<a class="headerlink" href="#confirm-it-s-clean" title="Permalink to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">fpdf</span><span class="w"> </span><span class="kn">import</span> <span class="n">FPDF</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">FPDF</span><span class="o">.</span><span class="vm">__module__</span><span class="p">)</span>  <span class="c1"># should return &quot;fpdf.fpdf&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="final-directory-structure">
+<h3>4️⃣ Final Directory Structure<a class="headerlink" href="#final-directory-structure" title="Permalink to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>your-project/
+├── generate_letter.py          ← final working script
+├── fonts/
+│   ├── DejaVuSans.ttf
+│   └── DejaVuSans-Bold.ttf
+├── figures/
+│   └── ukubona.png
+├── pdfs/
+│   └── jonathan.pdf            ← output
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="key-coding-decisions">
+<h3>5️⃣ Key Coding Decisions<a class="headerlink" href="#key-coding-decisions" title="Permalink to this heading">#</a></h3>
+<p>✅ Registered both fonts <strong>before</strong> <code class="docutils literal notranslate"><span class="pre">add_page()</span></code><br />
+✅ Used <code class="docutils literal notranslate"><span class="pre">uni=True</span></code> in <code class="docutils literal notranslate"><span class="pre">add_font(...)</span></code><br />
+✅ Used <code class="docutils literal notranslate"><span class="pre">DejaVu</span></code> for <strong>both regular and bold</strong>, including header and footer<br />
+✅ Used <code class="docutils literal notranslate"><span class="pre">multi_cell()</span></code> for long paragraph wrapping<br />
+✅ Output path handled via <code class="docutils literal notranslate"><span class="pre">os.path.join()</span></code><br />
+✅ Created output directory (<code class="docutils literal notranslate"><span class="pre">pdfs/</span></code>) automatically if missing<br />
+✅ Used <code class="docutils literal notranslate"><span class="pre">.py</span></code> script (not <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code>) for clean font rendering</p>
+</section>
+<hr class="docutils" />
+<section id="final-output">
+<h3>6️⃣ Final Output<a class="headerlink" href="#final-output" title="Permalink to this heading">#</a></h3>
+<p>Command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>generate_letter.py
+</pre></div>
+</div>
+<p>Result:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>✅ PDF saved to pdfs/jonathan.pdf
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="optional-enhancements-ready-when-you-are">
+<h3>🧪 Optional Enhancements (Ready When You Are)<a class="headerlink" href="#optional-enhancements-ready-when-you-are" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Add QR code (e.g. <code class="docutils literal notranslate"><span class="pre">qrcode</span></code> or <code class="docutils literal notranslate"><span class="pre">segno</span></code> Python lib)</p></li>
+<li><p>Insert tables or charts via <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, export to PNG, embed</p></li>
+<li><p>Add digital signature image</p></li>
+<li><p>Use HTML-to-PDF with <code class="docutils literal notranslate"><span class="pre">WeasyPrint</span></code> for rich layout if needed later</p></li>
+<li><p>Automate via GitHub Actions or CLI input for dynamic intern letters</p></li>
+</ul>
+<hr class="docutils" />
+<p>You now have a <strong>stable, portable, version-controlled, and Fortune-500-worthy</strong> letter generator.</p>
+<p>Let me know if you want me to bundle this as a public or private GitHub template for reuse across internship support letters, grant templates, or board presentations.</p>
 </details>
+</section>
+</section>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -1241,6 +1284,47 @@ Ukubona. We don’t just see—we <em>perceive</em>.</p>
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ukubona-pdf-generation-summary-reproducible-process">✅ Ukubona PDF Generation Summary (Reproducible Process)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#goal">🔧 GOAL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-failures">1️⃣ Initial Failures</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-encoding-errors">❌ Problem: Encoding errors</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-font-not-defined">❌ Problem: Font not defined</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-wrong-install">❌ Problem: Wrong install</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-fixes">2️⃣ Final Fixes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fonts-used">✅ Fonts Used</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-get-them">🔗 Where to get them:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-setup">3️⃣ Environment Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#uninstall-legacy-version">✅ Uninstall legacy version:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#install-correct-modern-library">✅ Install correct modern library:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#confirm-it-s-clean">✅ Confirm it’s clean:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-directory-structure">4️⃣ Final Directory Structure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-coding-decisions">5️⃣ Key Coding Decisions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-output">6️⃣ Final Output</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optional-enhancements-ready-when-you-are">🧪 Optional Enhancements (Ready When You Are)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
