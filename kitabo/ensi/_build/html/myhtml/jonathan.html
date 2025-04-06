@@ -82,6 +82,36 @@
     h1, h2 {
       border-bottom: 1px solid var(--border-color);
     }
+
+    @media (max-width: 768px) {
+      #container {
+        flex-direction: column;
+        padding: 0.5rem;
+      }
+    
+      nav.toc, aside.appearance {
+        width: auto;
+        margin: 0 0 1rem 0;
+        position: relative;
+      }
+    
+      .infobox {
+        float: none;
+        width: 100%;
+        margin: 1rem 0;
+      }
+    
+      main#content {
+        max-width: 100%;
+        padding: 0;
+      }
+    
+      header h1 {
+        font-size: 1.5rem;
+        padding-left: 1rem;
+      }
+    }
+    
   </style>
 </head>
 <body>
@@ -114,7 +144,7 @@
         </table>
       </div>
     
-      <h2 id="overview">Overview</h2>
+      <h2 id="overview"></h2>
       <p><strong>Starlace</strong> is a modular analytics engine designed by <i>Ukubona</i>, a Virginia-based analytics firm, to democratize statistical insight across sectors ranging from public health to environmental justice. Launched in 2025 by the OpenCanvas Collective, the tool offers a drag-and-drop interface backed by deeply customizable code blocks—allowing novice users and expert analysts to collaborate in real time. It gained early traction in clinical research at leading clinical research instutions in Maryland and California and quickly expanded to support real-world case simulations beyond clinical medicine and public health, sports medicine, education policy, water equity, and even refugee <em>logisitics</em><sup class="reference"><a href="#ref1" id="note1">[1]</a></sup>.</p>
     
       <h2 id="architecture">Architecture</h2>
