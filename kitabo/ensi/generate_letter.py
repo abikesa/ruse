@@ -79,6 +79,7 @@ Let me know if you’d like to set up a time for Jonathan and me to chat. I’d 
 
 Warmly,
 
+
 Abimereki Muzaale, MD, PhD  
 Founder & CEO, Ukubona LLC
 """
@@ -97,7 +98,31 @@ pdf.ln(5)
 pdf.chapter_title("Letter of Internship Support for Jonathan")
 pdf.chapter_body(letter_body)
 pdf.ln(4)
-pdf.add_hyperlink("Visit Ukubona LLC", "https://ukubona-llc.github.io/")
+# pdf.add_hyperlink("Visit Ukubona LLC", "https://ukubona-llc.github.io/")
+
+import qrcode
+
+# ========== QR Code Generation ==========
+qr_url = "https://ukubona-llc.github.io/"
+qr_img_path = os.path.join(FIGURE_DIR, "ukubona_qr.png")
+
+qr = qrcode.QRCode(
+    version=1,
+    error_correction=qrcode.constants.ERROR_CORRECT_M,
+    box_size=6,
+    border=2,
+)
+qr.add_data(qr_url)
+qr.make(fit=True)
+img = qr.make_image(fill_color="black", back_color="white")
+img.save(qr_img_path)
+
+# ========== Embed QR Code ==========
+pdf.set_font("DejaVu", "", 10)
+pdf.set_text_color(80, 80, 80)
+pdf.cell(0, 10, "Scan QR to visit Ukubona LLC:", ln=True)
+pdf.image(qr_img_path, x=pdf.get_x() + 5, y=pdf.get_y(), w=30)
+pdf.ln(35)  # Move cursor down to avoid overlap
 
 pdf.output(OUTPUT_PDF)
 print(f"✅ PDF saved to {OUTPUT_PDF}")
