@@ -8,6 +8,7 @@ dirs=(
   testbin
   nis
   myhtml
+  dedication
 )
 
 # Create directories under _build/html
